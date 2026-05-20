@@ -91,7 +91,7 @@ build/Release/fxsound_engine.exe
 
 ## 研发注意事项
 
-- `CMakeLists.txt` 使用相对路径 `../fxsound-app`，不要写死本机绝对路径。
+- `CMakeLists.txt` 优先使用仓库内置 `fxsound-app`，也支持通过 `-DFXSOUND_ROOT=<path>` 指定外部 FxSound 源码；不要写死本机绝对路径。
 - 中文路径下构建和运行必须保持兼容，新增脚本不要依赖固定盘符。
 - 修改驱动安装/卸载逻辑前，必须验证管理员权限、外部 FxSound 冲突、卸载所有权和系统默认设备恢复。
 - 修改设备枚举逻辑前，必须确认不会把 FxSound 虚拟设备暴露为可选输出设备。
@@ -106,6 +106,39 @@ cmake --build build --config Release --target fxsound_engine
 ```
 
 如果要随听风者客户端发布，请使用上层项目的 release 脚本统一打包，不要手工拼 release 目录。
+
+## 发布 GitHub Release
+
+完整 Windows 客户端 release 依赖上层 Flutter app 构建产物，因此当前仓库不使用 GitHub Actions 编译完整客户端。研发在本机执行上层构建脚本生成 `release/` 后，使用本仓库脚本发布 GitHub Release：
+
+```powershell
+.\scripts\publish_release.ps1
+```
+
+默认读取仓库同级目录的 `..\release`。如果 release 目录在其他位置：
+
+```powershell
+.\scripts\publish_release.ps1 -ReleaseDir "D:\path\to\release"
+```
+
+预检查但不创建 Release：
+
+```powershell
+.\scripts\publish_release.ps1 -DryRun
+```
+
+指定 tag：
+
+```powershell
+.\scripts\publish_release.ps1 -Tag "v2026.05.20-build2"
+```
+
+脚本会：
+
+- 校验 `listening_wind_app.exe`、`engine\fxsound_engine.exe`、FAC、驱动和卸载脚本是否存在。
+- 排除 `*.log`、`*.dmp`、`crash_logs/`。
+- 生成 `out\listening_wind_release_<tag>.zip`。
+- 如果 Release 不存在则创建；如果已存在则覆盖上传同名 zip。
 
 ## 下载免编译包
 
