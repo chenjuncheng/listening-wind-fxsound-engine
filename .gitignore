@@ -1,0 +1,46 @@
+# Build output
+build/
+out/
+.vs/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+build.ninja
+.ninja_deps
+.ninja_log
+
+# Binaries and generated libraries
+*.exe
+*.dll
+*.lib
+*.pdb
+*.obj
+*.ilk
+*.exp
+
+# Driver packages and generated release payloads
+*.sys
+*.cat
+*.cab
+*.msi
+*.zip
+*.7z
+
+# Logs and runtime state
+*.log
+*.dmp
+*.tmp
+*.bak
+*.user
+*.suo
+.fxsound_recovery
+driver_install_result.json
+driver_uninstall_result.json
+fxvad_ownership_marker.json
+
+# Local editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+

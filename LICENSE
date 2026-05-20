@@ -1,0 +1,14 @@
+GNU Affero General Public License v3.0 only
+
+This repository is licensed under the GNU Affero General Public License,
+version 3 only (AGPL-3.0-only), because it is derived from FxSound source
+code that is licensed under AGPL-3.0.
+
+The full license text is available at:
+
+https://www.gnu.org/licenses/agpl-3.0.txt
+
+In this workspace, the upstream FxSound license text is also available at:
+
+../fxsound-app/LICENSE
+
