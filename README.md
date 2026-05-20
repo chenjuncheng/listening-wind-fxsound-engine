@@ -6,7 +6,7 @@
 
 - 本目录代码基于 FxSound AGPL-3.0 源码进行适配，许可证继承为 AGPL-3.0-only。
 - 如果分发包含本引擎的二进制程序，需要同时向用户提供对应源码和修改说明。
-- 当前目录不是完整 FxSound 上游源码镜像；构建时需要同级目录 `../fxsound-app` 提供 FxSound 原始源码。
+- 当前仓库已带上构建所需的 `fxsound-app` 源码；如果本地另有同级目录 `../fxsound-app`，CMake 也可以兼容使用。
 - 不要提交本机编译产物、驱动二进制、日志、缓存或本机路径配置。
 
 ## 目录结构
@@ -17,15 +17,8 @@ fxsound-engine/
   src/                    听风者引擎适配代码
   overrides/              编译覆盖头文件
   docs/                   集成说明和产品/技术文档
+  fxsound-app/            FxSound AGPL-3.0 上游源码
   build/                  本机生成目录，不提交
-```
-
-依赖目录：
-
-```text
-listening_wind/
-  fxsound-app/            FxSound AGPL-3.0 原始源码
-  fxsound-engine/         当前仓库目录
 ```
 
 ## 构建要求
@@ -34,7 +27,7 @@ listening_wind/
 - Visual Studio 2022 Build Tools，包含 MSVC C++ 工具链
 - CMake 3.20+
 - Ninja，或 Visual Studio CMake 生成器
-- 同级 `../fxsound-app` 源码目录
+- 仓库内置 `fxsound-app` 源码目录，或通过 `-DFXSOUND_ROOT=<path>` 指定 FxSound 源码目录
 
 ## 构建命令
 
@@ -113,3 +106,9 @@ cmake --build build --config Release --target fxsound_engine
 ```
 
 如果要随听风者客户端发布，请使用上层项目的 release 脚本统一打包，不要手工拼 release 目录。
+
+## 下载免编译包
+
+如果只需要运行程序，请从 GitHub Releases 下载打包好的 release 压缩包。该包包含客户端 exe、引擎 exe、FAC 预设、驱动文件和辅助脚本。
+
+源码仓库不直接提交 release 二进制，避免每次构建都污染 Git 历史。

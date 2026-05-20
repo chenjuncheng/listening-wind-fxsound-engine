@@ -7,7 +7,17 @@ set(CMAKE_C_STANDARD 99)
 # ============================================================================
 # FxSound source root (original, unmodified)
 # ============================================================================
-set(FXSOUND_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../fxsound-app")
+if(NOT DEFINED FXSOUND_ROOT)
+    if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/fxsound-app/dsp/DfxDsp.cpp")
+        set(FXSOUND_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/fxsound-app")
+    elseif(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/../fxsound-app/dsp/DfxDsp.cpp")
+        set(FXSOUND_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../fxsound-app")
+    else()
+        message(FATAL_ERROR "FxSound source not found. Put fxsound-app under this repo or next to fxsound-engine, or pass -DFXSOUND_ROOT=<path>.")
+    endif()
+endif()
+
+message(STATUS "Using FxSound source root: ${FXSOUND_ROOT}")
 
 # ============================================================================
 # Our override directory (patches that take priority via include path)
